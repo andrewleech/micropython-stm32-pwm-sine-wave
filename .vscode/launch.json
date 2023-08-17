@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: stm_register_builder",
+            "type": "python",
+            "request": "launch",
+            "program": "stm_register_builder.py",
+            "args": ["micropython/lib/stm32lib/CMSIS/STM32WBxx/Include/stm32wb55xx.h"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
