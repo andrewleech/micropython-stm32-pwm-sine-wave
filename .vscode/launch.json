@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "stm_register_builder.py",
-            "args": ["micropython/lib/stm32lib/CMSIS/STM32WBxx/Include/stm32wb55xx.h"],
+            "args": ["stm32wb55", "signal_gen/stm_dma_timer.py"],
             "console": "integratedTerminal",
             "justMyCode": true
         }

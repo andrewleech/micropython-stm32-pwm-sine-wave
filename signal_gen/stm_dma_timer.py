@@ -13,58 +13,8 @@ __all__ = [
     "DMA2_Channel2",
 ]
 
-
-class Register:
-    def __init__(self, addr) -> None:
-        if not hasattr(self.__class__, "__regs__"):
-            # We have register definitions defined on Register subclasses, which are used
-            # to create the uctypes.struct instances.
-            # These attributes get in the way of reading the struct attrs though, so move
-            # them to an class.__regs__ dict for referencing and delete from the class itself.
-            __regs__ = {k: v for k, v in self.__class__.__dict__.items() if not k.startswith("_")}
-            setattr(self.__class__, "__regs__", __regs__)
-            for k in __regs__:
-                delattr(self.__class__, k)
-
-        self.__addr__ = addr
-
-        descriptor = {
-            k: (v | uctypes.UINT32) for k, v in self.__class__.__regs__.items()  # type: ignore
-        }
-        self.__struct__ = uctypes.struct(addr, descriptor)
-
-    def __reg_addr__(self, register: str):
-        return self.__addr__ + self.__regs__[register]
-
-    def __repr__(self):
-        return f"<{self.__class__.__name__} 0x{self.__addr__:x}>"
-
-    def __dir__(self):
-        return [k for k in self.__regs__]
-
-    def __inspect__(self):
-        print(self.__class__.__name__)
-        struct = self.__struct__
-        for k, v in sorted(self.__regs__.items(), key=lambda t: t[1]):
-            val = getattr(struct, k)
-            print(f"{k : 10} (0x{v:04x}):  0x{val:04x}")
-
-    def __getattr__(self, __name: str) -> Any:
-        if __name.startswith("_"):
-            raise AttributeError(__name)
-
-        v = getattr(self.__struct__, __name)
-        return v
-
-    def __setattr__(self, __name: str, __value: Any) -> None:
-        if __name.startswith("_"):
-            object.__setattr__(self, __name, __value)
-        else:
-            setattr(self.__struct__, __name, __value)
-
-
 try:
-    from ._stm_registers import *
+    from signal_gen._stm_registers import *
 
 except ImportError:
     print("ERROR: Register definitions missing")

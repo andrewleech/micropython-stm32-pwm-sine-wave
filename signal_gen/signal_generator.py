@@ -3,7 +3,7 @@ from pyb import Timer
 
 from machine import Pin
 
-from stm_dma_timer import (
+from signal_gen.stm_dma_timer import (
     __HAL_RCC_DMAMUX1_CLK_ENABLE__,
     __HAL_RCC_DMA1_CLK_ENABLE__,
     __HAL_RCC_DMA2_CLK_ENABLE__,
